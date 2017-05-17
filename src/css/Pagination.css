@@ -1,0 +1,106 @@
+.ms-pagination {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	text-align: center;
+}
+.ms-pagination-pages ul {
+	list-style: none;
+}
+.ms-pagination-pages ul li{
+	color: #337ab7;
+	margin-left: -1px;
+	display: inline-block;
+	border: 1px solid #ddd;
+	min-width: 28px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	cursor: pointer;
+}
+.ms-pagination-pages ul li:first-child{
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+.ms-pagination-pages ul li:last-child{
+	border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.ms-pagination-pages ul li:hover{
+	background-color: #eee;
+}
+.ms-pagination-pages ul li.ms-pagination-current,.ms-pagination-pages ul li.ms-pagination-dot{
+	cursor: default;
+}
+.ms-pagination-pages ul li.ms-pagination-current:hover{background-color:#ca2d2d;}
+.ms-pagination-pages ul li.ms-pagination-dot:hover{background-color: inherit;}
+.ms-pagination-pages ul li.ms-pagination-current {
+	color: #fff;
+	border-color: #ddd;
+	background-color: #ca2d2d;
+}
+.ms-pagination-pages, .ms-pagination-go, .ms-paginatioin-btn, .ms-pagination-go-wrap {
+	display: inline-block;
+	margin : 0 4px;
+}
+
+.ms-pagination-go {
+	margin-left: 20px;	
+}
+
+.ms-pagination-go input {
+	width: 36px;
+	height: 26px;
+	border: 1px solid #aaa;
+	padding: 0;
+	text-align: center;
+	border-radius: 4px;
+}
+
+.ms-paginatioin-btn {
+	margin-left: 20px;
+}
+.ms-paginatioin-btn	button {
+	padding: 0;
+	width: 50px;
+	height: 28px;
+	outline: none;
+	cursor: pointer;
+	border-radius: 4px;
+	display: inline-block;
+	border: 1px solid #aaa;
+	background-color: transparent;
+}
+.ms-paginatioin-btn	button:hover{
+	background-color: #eee;
+}
+.ms-pagination-disabled {
+	opacity: 0.3;
+}
+.ms-pagination-disabled:hover {
+	background-color: transparent !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,77 @@
+.jk-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #a1a1a1;
+    margin: 0 auto
+}
+
+.jk-table thead {
+    background: #CCC
+}
+
+.jk-table td, .jk-table th {
+    border: 1px solid #a1a1a1;
+    padding: 4px 7px;
+    overflow: hidden;
+    white-space: nowrap
+}
+
+.jk-table .jk-td-div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.jk-table tr:nth-child(2n) {
+    background-color: #EEE
+}
+
+.jk-table tr > td:first-child {
+    text-align: center
+}
+
+.jk-table tbody tr:hover {
+    background-color: #A29898;
+    cursor: pointer
+}
+
+.jk-table tbody tr > td:nth-child(2):hover {
+    color: #2F3CC1
+}
+
+.jk-table .next, .jk-table .pre {
+    font-size: 20px
+}
+
+.jk-table .page > a, .jk-table .page > div, .jk-table .page > span {
+    float: left;
+    margin-left: 10px
+}
+
+.jk-table .page .next-all, .jk-table .page .pre-all {
+    margin-top: 5px;
+    cursor: pointer
+}
+
+.jk-table .page .next, .jk-table .page .pre {
+    cursor: pointer
+}
+
+.jk-table .page .page-list {
+    margin-top: 4px
+}
+
+.jk-table .page .page-list a {
+    display: block;
+    width: 20px;
+    text-align: center;
+    border-radius: 7px;
+    float: left
+}
+
+.jk-table .page .page-list .active {
+    color: #fff;
+    background: #CA2D2D
+}
+.jk-table .footer{text-align: center}
+.jk-table .footer>span{display: inline-block;vertical-align: middle;}

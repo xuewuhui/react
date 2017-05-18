@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "antd": "^2.10.0",
-    "blowfish": "^1.0.1",
     "classnames": "^2.2.5",
     "immutable": "^3.8.1",
     "jquery": "^3.2.1",

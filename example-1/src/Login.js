@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
-import blowfish from 'blowfish';
 import Http from './common/Http';
 import Consts from './common/Constants';
 import AppInfos from './common/AppInfos';
+import Blowfish from './common/Blowfish';
 import './css/public.css';
 import './css/login.css';
 
@@ -30,7 +30,7 @@ export default class Login extends Component {
 
 		var data = {
 			email: userEmailVal,
-			password: blowfish(userEmailVal+ENCRYPT_MAGIC_CODE, passwdVal),
+			password: Blowfish.prototype.encrypt_with_pkcs7_bf(userEmailVal+ENCRYPT_MAGIC_CODE, passwdVal),
 			domain: domain,
 			platform:'mlp'
 		};

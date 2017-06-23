@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import Header from '../template/Header';
 import Silder from '../template/Silder';
-import '../../css/public.css';
-import '../../css/home.css';
 
 export default class Account extends Component {
 

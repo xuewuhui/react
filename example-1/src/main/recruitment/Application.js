@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import Consts from '../../common/Constants';
 import Header from '../template/Header';
 import Silder from '../template/Silder';
-import '../../css/public.css';
-import '../../css/home.css';
 
 export default class Application extends Component {
 

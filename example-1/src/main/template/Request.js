@@ -6,14 +6,15 @@ module.exports = {
 	//获取城市列表数据
 	fetchCityData(successCallback){
 		Http.gikooRequest(
-			Consts.Urls.CITY_UEL,
+			Consts.Urls.CITY_URL,
 			'get',
 			null,
 			(data)=>{
 				successCallback && successCallback(data);
 			},
 			(error)=>{
-				alert(error.responseText && JSON.parse(error.responseText).detail);
+				if(error.status !== 0)
+					alert(error.responseText && JSON.parse(error.responseText).detail);
 			}
 		)
 	},
@@ -28,7 +29,8 @@ module.exports = {
 				successCallback && successCallback(data);
 			},
 			(error)=>{
-				alert(error.responseText && JSON.parse(error.responseText).detail);
+				if(error.status !== 0)
+					alert(error.responseText && JSON.parse(error.responseText).detail);
 			}
 		)
 	},

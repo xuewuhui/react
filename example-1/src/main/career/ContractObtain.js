@@ -10,8 +10,6 @@ import Search from '../template/Search';
 import Request from '../template/Request';
 import List from '../template/Contract/List';
 import Detail from '../template/Contract/Detail';
-import '../../css/public.css';
-import '../../css/home.css';
 
 export default class ContractObtain extends Component {
 
@@ -29,15 +27,7 @@ export default class ContractObtain extends Component {
 		    keyword : null,
 		    city_id : -1,
 		    isNoData : true,
-		}
-	}
-
-	/**
-	* 设置路由 - react router history
-	* 注：刷新当前页路由会丢失
-	**/
-	componentWillMount(){
-		Consts.Navigator = this.props;
+		};
 	}
 
 	componentDidMount(){
@@ -45,10 +35,16 @@ export default class ContractObtain extends Component {
 		Request.fetchCityData((data)=>{
 			this.setState({dataCitySource:data});
 		});
-
 		this.fetchContractListData();
 	}
 
+	componentWillUnmount(){
+		//组件被移除时所有请求abort，并清空组件的请求array
+		Consts.AjaxStart.length && Consts.AjaxStart.forEach((e)=>{
+			e.abort && e.abort();
+		});
+		Consts.AjaxStart = [];
+	}
 
 	//获取合同列表数据
 	fetchContractListData() {
@@ -79,8 +75,10 @@ export default class ContractObtain extends Component {
 			},
 			(error)=>{
 				this.props.changeView && this.props.changeView(false);
-				this.setState({isNoData : true});
-				alert(error.responseText && JSON.parse(error.responseText).detail);
+				if(error.status !== 0){ //请求abort除外
+					this.setState({isNoData : true});
+					alert(error.responseText && JSON.parse(error.responseText).detail);
+				}	
 			}
 		)
 	}
@@ -162,31 +160,29 @@ export default class ContractObtain extends Component {
 	renderListView(){
 		return(
 			<div className="area-content-right-block">
-                <div className="title">
-                    <h2>合同列表</h2>
-                </div>
-                <div className="block-content">
+        <div className="title">
+           <h2>合同列表</h2>
+        </div>
+        <div className="block-content">
 
-                	{/*搜索部分*/}
-                    <Search isShowCity={true} cityId={this.state.city_id} dataCitySource={this.state.dataCitySource} searchClick={(text,city)=>this.handleSearchContract(text,city)} />
-                    
-                    <div className="table-content">
-                        
-                        {/*合同列表TABLE*/}
-                        <List {...this.state} showDetail={(id)=>this.handleShowDetailClick(id)} fetchData={(page)=>this.handlePageClick(page)} />
-                        
-                        <div className="form-submit">
-                        	{
-                        		!this.state.isNoData
-                        		&& 
-                        		<button id="btn-receive" className="btn-submit save" onClick={()=>this.handleContractObtainClick()}>领取合同</button>
-                        	}
-                        </div>
-
-                    </div>
-                    
-                </div>
+        	{/*搜索部分*/}
+          <Search isShowCity={true} cityId={this.state.city_id} dataCitySource={this.state.dataCitySource} searchClick={(text,city)=>this.handleSearchContract(text,city)} />
+          
+          <div className="table-content">
+              
+            {/*合同列表TABLE*/}
+            <List {...this.state} showDetail={(id)=>this.handleShowDetailClick(id)} fetchData={(page)=>this.handlePageClick(page)} />
+            
+            <div className="form-submit">
+            	{
+            		!this.state.isNoData
+            		&& 
+            		<button id="btn-receive" className="btn-submit save" onClick={()=>this.handleContractObtainClick()}>领取合同</button>
+            	}
             </div>
+          </div>    
+      	</div>
+    	</div>
 		)
 	}
 

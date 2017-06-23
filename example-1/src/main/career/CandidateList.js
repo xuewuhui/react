@@ -1,5 +1,5 @@
 /**
- *申请记录
+ *应聘人员
 **/
 import React, {Component} from 'react';
 import Http from '../../common/Http';
@@ -9,8 +9,6 @@ import Silder from '../template/Silder';
 import Search from '../template/Search';
 import Request from '../template/Request';
 import UserList from '../template/User/List';
-import UserDetail from '../template/User/Detail';
-import QuicklyApply from '../template/QuicklyApply';
 
 export default class ContractObtain extends Component {
 
@@ -39,7 +37,16 @@ export default class ContractObtain extends Component {
 			this.setState({dataContractSource:data});
 		});
 
-		this.fetchApplyListData();
+		//从详情返回定位数据页码
+		const oldPageIndex = this.props.location && this.props.location.state && this.props.location.state.pageIndex;
+		if(oldPageIndex){
+			this.setState({
+				pageIndex: oldPageIndex,
+				currentPage: oldPageIndex
+			},()=>this.fetchApplyListData());
+		}else{
+			this.fetchApplyListData();
+		}	
 	}
 
 	componentWillUnmount(){
@@ -101,28 +108,17 @@ export default class ContractObtain extends Component {
 		},()=>this.fetchApplyListData());		
 	}
 
-	//关闭用户详情
-	handleShowUserListClick(){
-		this.setState({showUserDetail:false});
-	}
-
 	//查看用户详情
 	handleShowUserDetailClick(id){
-		this.setState({dataUserDetailSource:[],showUserDetail:true});
-		this.props.changeView && this.props.changeView(true);
-		Http.gikooRequest(
-			Consts.Urls.CANDIDATE_DETAIL_URL+id+'/',
-			'get',
-			null,
-			(data)=>{
-				this.setState({dataUserDetailSource:data});
-				this.props.changeView && this.props.changeView(false);
-			},
-			(error)=>{
-				alert("信息加载失败");
-				this.props.changeView && this.props.changeView(false);
-			}
-		)
+		let path = this.props.match && this.props.match.path,
+			location = path + '/' + id ,
+			url = {
+				pathname: location,
+				search: '?some=search-string',
+				hash: '#howday',
+				state: {pageIndex:this.state.pageIndex}
+			};
+		this.props.history && this.props.history.push && this.props.history.push(url);
 	}
 
 	//渲染申请列表
@@ -130,15 +126,14 @@ export default class ContractObtain extends Component {
 		return(
 			<div>
         <div className="title">
-            <h2>我的申请</h2>
+            <h2>应聘人员</h2>
         </div>
         <div className="block-content">
-
         	{/*搜索部分*/}
-            <Search isShowCity={false} dataContractSource={this.state.dataContractSource} searchClick={(text,city,task,status)=>this.handleSearchApplyClick(text,city,task,status)} />
+          <Search isShowCity={false} dataContractSource={this.state.dataContractSource} searchClick={(text,city,task,status)=>this.handleSearchApplyClick(text,city,task,status)} />
 
-            {/*合同列表TABLE*/}
-            <UserList {...this.state} showDetail={(id)=>this.handleShowUserDetailClick(id)} fetchData={(page)=>this.handlePageClick(page)} isDisabled={true} isApplication={true} isRecommend={false} />                 
+          {/*合同列表TABLE*/}
+          <UserList {...this.state} showDetail={(id)=>this.handleShowUserDetailClick(id)} fetchData={(page)=>this.handlePageClick(page)} isDisabled={true} isApplication={true} isRecommend={false} />                 
         </div>
     </div>
 		)
@@ -147,30 +142,16 @@ export default class ContractObtain extends Component {
 	render(){
 		return(
 			<div className="warp">
-				<Header title={'申请记录'} {...this.props} />
+				<Header title={'应聘人员'} {...this.props} />
 				<div className="content">
-					<Silder active_6={true} />
+					<Silder active_8={true} />
 					<div className="content-right">
 						<div className="area">
 							<div className="area-content-right">
 								<div className="area-content-right-block">
 									{/*用户列表TABLE*/}
 									{this.renderListView()}
-
-									{/*用户详情信息*/}
-									{
-										this.state.showUserDetail &&
-				                    	<UserDetail data={this.state.dataUserDetailSource} changeDetailStatus={()=>this.handleShowUserListClick()} isDisabled={true} changeView={this.props.changeView} />
-									}
 								</div>
-
-								{/*快速创建申请*/}
-								<QuicklyApply 
-									dataContractSource={this.state.dataContractSource}
-									changeView={this.props.changeView}
-									fetchApply={()=>this.handleSearchApplyClick()}
-								 />
-
 							</div>
 						</div>
 					</div>

@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import AppInfos from './AppInfos.js';
-import Consts from './Constants.js';
+import Consts from './Constants';
+
 let expiredDone = false;	
 
 module.exports = {
@@ -10,16 +11,16 @@ module.exports = {
 		AppInfos.removeItem("GIKOOUN");
 		AppInfos.removeItem("GIKOO-USR");
 		AppInfos.removeItem("token");
-		Consts.Navigator && Consts.Navigator.history && Consts.Navigator.history.push('/');
+		Consts.Router && Consts.Router.history && Consts.Router.history.replace && Consts.Router.history.replace('/');
 	},
 	
 	//账号被登出
-    noAuthRedirect(){
-        if (!expiredDone) {
-            expiredDone = true;
+  noAuthRedirect(){
+		if (!expiredDone) {
+		  expiredDone = true;
 			this.clearCookie();
-        }
-    },
+		}
+  },
 
 	gikooRequest(path, type, data, successCallback, errorCallback){
 		let that = this,token = AppInfos.getItem('token');
@@ -33,7 +34,7 @@ module.exports = {
 			}
 		}
 
-		$.ajax({
+		let ajaxItem = $.ajax({
 			url: path,
 			type: type,
 			beforeSend : function(XMLHttpRequest){
@@ -43,7 +44,6 @@ module.exports = {
 			contentType: "application/json",
 			dataType: "json",
 			success: function(data) {
-	
 				if (successCallback !== null) {
 					successCallback(data);
 				}
@@ -54,9 +54,10 @@ module.exports = {
 					if (ret === true) return;
 				}
 				if(xhr.status === 401){
-                    that.noAuthRedirect();
-                }
+           that.noAuthRedirect();
+        }
 			}
 		});
+		Consts.AjaxStart.push(ajaxItem);
 	}
 }

@@ -9,7 +9,6 @@ import Http from '../../common/Http';
 import Consts from '../../common/Constants';
 import Utils from '../../common/Utils';
 
-
 export default class QuicklyApply extends Component {
 
 	constructor(props){

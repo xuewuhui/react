@@ -2,8 +2,9 @@
 import React, {Component} from 'react';
 export default class NoData extends Component {
 	render(){
+		let text = this.props.text ? this.props.text : '暂无数据';
 		return(
-			<tr><td colSpan={this.props.colspan}>暂无数据</td></tr>
+			<tr><td colSpan={this.props.colspan}>{text}</td></tr>
 		)
 	}
 }

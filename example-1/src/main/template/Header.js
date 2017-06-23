@@ -25,6 +25,7 @@ export default class Header extends Component {
 	}
 
 	componentWillMount(){
+		Consts.Router = this.props;
 		let userInfo = AppInfos.getItem('GIKOO-USR') && JSON.parse(AppInfos.getItem('GIKOO-USR'));
 		if(!userInfo){
 			Http.clearCookie();

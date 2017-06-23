@@ -15,26 +15,27 @@ export default class Header extends Component {
 				{/*管理员*/}
 				{role === 0 && 
 					<ul className="menu-block">
-						<li className={this.props.active_0 ? 'icon icon-entry active' : 'icon icon-entry'}><Link to='/main/admin/Contract'>合同录入</Link></li>
-						<li className={this.props.active_1 ? 'icon icon-consultant active' : 'icon icon-consultant'}><Link to='/main/admin/Account'>创建账号</Link></li>
+						<li className={this.props.active_0 ? 'icon icon-entry active' : 'icon icon-entry'}><Link to='/admin/Contract'>合同录入</Link></li>
+						<li className={this.props.active_1 ? 'icon icon-consultant active' : 'icon icon-consultant'}><Link to='/admin/Account'>创建账号</Link></li>
 					</ul>
 				}
 
 				{/*招聘顾问*/}
 				{user_type === 2 && 
 					<ul className="menu-block">
-						<li className={this.props.active_2 ? 'icon icon-record active' : 'icon icon-record'}><Link to='/main/recruitment/Application'>申请列表</Link></li>
+						<li className={this.props.active_2 ? 'icon icon-record active' : 'icon icon-record'}><Link to='/recruitment/Application'>申请列表</Link></li>
 					</ul>
 				}
 
 				{/*求职顾问*/}
 				{user_type === 1 && 
 					<ul className="menu-block">
-						<li className={this.props.active_3 ? 'icon icon-obtain active' : 'icon icon-obtain'}><Link to='/main/career/ContractObtain'>合同获取</Link></li>
-						<li className={this.props.active_4 ? 'icon icon-relation active' : 'icon icon-relation'}><Link to='/main/career/Recommender'>推荐人员</Link></li>
-						<li className={this.props.active_5 ? 'icon icon-person active' : 'icon icon-person'}><Link to='/main/career/MyResources'>我的资源</Link></li>
-						<li className={this.props.active_6 ? 'icon icon-record active' : 'icon icon-record'}><Link to='/main/career/RecordInfo'>申请记录</Link></li>
-						<li className={this.props.active_7 ? 'icon icon-auto active' : 'icon icon-auto'}><Link to='/main/career/AutoApplication'>自动申请</Link></li>
+						<li className={this.props.active_3 ? 'icon icon-obtain active' : 'icon icon-obtain'}><Link to='/career/ContractObtain'>合同获取</Link></li>
+						<li className={this.props.active_4 ? 'icon icon-relation active' : 'icon icon-relation'}><Link to='/career/Recommender'>推荐人员</Link></li>
+						<li className={this.props.active_5 ? 'icon icon-person active' : 'icon icon-person'}><Link to='/career/MyResources'>我的资源</Link></li>
+						<li className={this.props.active_6 ? 'icon icon-record active' : 'icon icon-record'}><Link to='/career/RecordInfo'>申请记录</Link></li>
+						<li className={this.props.active_7 ? 'icon icon-auto active' : 'icon icon-auto'}><Link to='/career/AutoApplication'>自动申请</Link></li>
+						<li className={this.props.active_8 ? 'icon icon-auto active' : 'icon icon-auto'}><Link to='/career/CandidateList'>应聘人员</Link></li>
 					</ul>
 				}
 			</div>

@@ -10,8 +10,6 @@ import Search from '../template/Search';
 import Request from '../template/Request';
 import UserList from '../template/User/List';
 import UserDetail from '../template/User/Detail';
-import '../../css/public.css';
-import '../../css/home.css';
 
 export default class ContractObtain extends Component {
 
@@ -22,25 +20,17 @@ export default class ContractObtain extends Component {
 			showDetail : false,
 			showUserDetail : false,
 			pageIndex : 1,
-		    pageSize: 20,
-		    currentPage: 1,
-		    checkedItems:{},
-		    dataUserSource : [],
-		    dataUserDetailSource : [],
-		    dataContractSource : [],
-		    keyword : null,
-		    task : -1,
+	    pageSize: 20,
+	    currentPage: 1,
+	    checkedItems:{},
+	    dataUserSource : [],
+	    dataUserDetailSource : [],
+	    dataContractSource : [],
+	    keyword : null,
+	    task : -1,
 			status : -1,
-		    isNoData : true,
+	    isNoData : true,
 		}
-	}
-
-	/**
-	* 设置路由 - react router history
-	* 注：刷新当前页路由会丢失
-	**/
-	componentWillMount(){
-		Consts.Navigator = this.props;
 	}
 
 	componentDidMount(){
@@ -50,6 +40,14 @@ export default class ContractObtain extends Component {
 		});
 
 		this.fetchApplyListData();
+	}
+
+	componentWillUnmount(){
+		//组件被移除时所有请求abort，并清空组件的请求array
+		Consts.AjaxStart.length && Consts.AjaxStart.forEach((e)=>{
+			e.abort && e.abort();
+		});
+		Consts.AjaxStart = [];
 	}
 
 	//获取申请列表数据
@@ -81,8 +79,10 @@ export default class ContractObtain extends Component {
 			},
 			(error)=>{
 				this.props.changeView && this.props.changeView(false);
-				this.setState({isNoData : true});
-				alert(error.responseText && JSON.parse(error.responseText).detail);
+				if(error.status !== 0){ //请求abort除外
+					this.setState({isNoData : true});
+					alert(error.responseText && JSON.parse(error.responseText).detail);
+				}
 			}
 		)
 	}

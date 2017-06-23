@@ -1,4 +1,5 @@
-var Navigator; //全局路由
+var Router; //全局路由
+var AjaxStart = []; //全局ajax请求对象，用于组件卸载后取消请求
 /**
 *存储用户相关key
 **/
@@ -23,7 +24,22 @@ const API_PREFIX = 'api/v1/';
 //const API_PREFIX_2 = 'api/v2/';
 const DOMAIN_TEST = window.location.href.indexOf('localhost') > -1 ? DOMAIN_DEV : DOMAIN_JOB;
 
+/**
+ * 存储应用中所有事件的名称
+ */
+ const Event = {
+ 		GOTOURL: 'event_gotourl',
+    LOGOUT: 'event_logout',
+    REFRESH_HOME: 'event_refresh_home',
+    REFRESH_MENU: 'event_refresh_menu',
 
+    CANDIDATE_REFRESH: 'event_candidate_refresh',
+    CANDIDATE_BACK_TO_IM: 'event_candidate_back_to_im',
+
+    APPLY_REFRESH: 'event_apply_refresh',
+    APPLY_BACK_FROM_IM: 'event_apply_back_from_im',
+    APPLY_DEALWITH_ANDROID_BACK: 'event_apply_dealwith_android_back'
+};
 
 /**
 *存储应用URL地址
@@ -32,7 +48,7 @@ const Urls = {
 	LOGIN_URL : DOMAIN_TEST + API_PREFIX + 'user/login/', //登录
 	LOGOUT_URL : DOMAIN_TEST + API_PREFIX + 'user/logout/', //登出
 	PHONE_EXSIT_URL : DOMAIN_TEST + API_PREFIX + 'consultant_candidate/check_phone/?phone=', //手机号码是否存在
-	CITY_UEL : 'http://mps5job.gikoo.cn/api/v1/util/data/initial/', //城市列表
+	CITY_URL : 'http://job.gikoo.cn/api/v1/util/data/initial/', //城市列表
 	APPLICATION_MY : DOMAIN_TEST + API_PREFIX + 'consultant_application/apply/my/?page=1&count=20', //申请列表
 	CONTRACT_OBTAIN_URL : DOMAIN_TEST + API_PREFIX + 'consultant_task/position/', //合同列表
 	OBTAIN_CONTRACT_URL : DOMAIN_TEST + API_PREFIX + 'consultant_task/position/pull/', //领取合同
@@ -49,18 +65,15 @@ const Urls = {
 	APPLY_MY_URL : DOMAIN_TEST + API_PREFIX + 'consultant_application/apply/my/', //申请人列表
 	APPLY_MY_AUTO_URL : DOMAIN_TEST + API_PREFIX + 'consultant_application/apply/my/from_store/', //自动申请列表
 	APPLY_MY_CANDIDATE_URL : DOMAIN_TEST + API_PREFIX + 'consultant/candidate/my/', //我的资源列表
-
-
-
-
-
 	
 }
 
 
 
 module.exports = {
-	Navigator : Navigator,
+	Router : Router,
 	UserInfo : UserInfo,
+	Event : Event,
 	Urls : Urls,
+	AjaxStart : AjaxStart
 }

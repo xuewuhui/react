@@ -2,9 +2,8 @@
  *用户备注View
 **/
 import React, {Component} from 'react';
-import {Modal} from 'antd';
+import { Modal, Pagination} from 'antd';
 import Utils from '../../../common/Utils';
-import Pagination from '../../../common/Pagination';
 
 export default class Remark extends Component {
 
@@ -44,18 +43,18 @@ export default class Remark extends Component {
 
 	//渲染备注View
 	renderRemarkView(){
-		let source = this.props.dataRemarkSource;
+		const source = this.props.dataRemarkSource;
 		if(source.results && source.results.length){
 			return source.results && source.results.map((k,i)=>{
 				return(
 					<tr key={'remark-'+i}>
 						<td>
 							<div className="remarks-item">
-								<h4>{Utils.convertEmpty(k.comment_user_name)}</h4>
+								<h4>{Utils.formatNone(k.comment_user_name)}</h4>
 								<div className="remarks-text">
-									{Utils.convertEmpty(k.comment)}
+									{Utils.formatNone(k.comment)}
 								</div>
-								<p className="times">{Utils.convertEmpty(k.create_time)}</p>
+								<p className="times">{Utils.formatNone(k.create_time)}</p>
 							</div>	
 						</td>
 					</tr>
@@ -68,8 +67,7 @@ export default class Remark extends Component {
 
 
 	render(){
-		let data = this.props.dataRemarkSource,
-			middlePage = Utils.pageRang(data.count,this.props.pageSize);	
+		const data = this.props.dataRemarkSource;
 		const {
 			pageSize,
 			currentPage,
@@ -85,20 +83,17 @@ export default class Remark extends Component {
 							data.count > 0 &&
 							<tfoot>
 								<tr>
-                    <td>
-                    	<Pagination
-											totalNumber={data.count}
-											pageSize={pageSize}
-											currentPage={currentPage}
-											middlePage={middlePage}
-											showGo={true}
-											showPages={true}
-											showPrev
-											showNext
-											onChange={(e)=>this.handlePageChange(e)}
+                  <td style={{textAlign:'center'}}>
+	                  <Pagination
+											showQuickJumper
+											current={currentPage}
+											pageSize={pageSize} 
+											total={data.count} 
+											showTotal={(total) => `共 ${total} 个`}
+											onChange={(e) => this.handlePageChange(e)} 
 										/>
-                    </td>
-                  </tr>
+                  </td>
+                </tr>
 							</tfoot>
 						}
 					</table>
